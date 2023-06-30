@@ -1,0 +1,58 @@
+body{
+	background: #01a3e2;
+	overflow: hidden;
+}
+
+.plane{
+	margin-left: 0px;
+	position: absolute;
+	left: -50vw;
+	top:40vh;
+  height: 10vh;
+}
+.text{
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  width:100vw;
+  height: 100vh;
+
+}
+
+@keyframes animation {
+  0%   {color: red;font-size: 60px;transform: rotate(10deg);}
+  20%  {color: lightgreen;font-size: 70px;transform: rotate(-10deg);}
+  40%  {color: darkcyan;font-size: 80px;transform: rotate(10deg);}
+  60% {color: red;font-size: 80px;transform: rotate(-10deg);}
+  80% {color: yellow;font-size: 70px;transform: rotate(10deg);}
+  100% {color: lightgreen;font-size: 60px;transform: rotate(-10deg);}
+}
+
+/* The element to apply the animation to */
+.heading {
+  animation-name: animation;
+  animation-duration: 4s;
+  animation-iteration-count: 1;
+  transition-duration: 2s;
+  color: lightgreen;
+  font-size: 60px;
+  transform: rotate(0deg);
+  
+}
+
+.instructions{
+  font-size: 40px;
+position: absolute;
+text-align: justify;
+width:50vw;
+left:25vw;
+top:25vh;
+
+}
+
+.Start{
+
+width:100%;
+text-align: center;
+
+}

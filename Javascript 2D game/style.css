@@ -1,0 +1,99 @@
+.player{
+	width: 150px;
+	margin-top: 200px;
+	transition-duration: 0.25s;
+}
+
+.cloud{
+
+	right:0px;
+	height:100px;
+	position:absolute;
+
+}
+.coin{
+
+	right:0px;
+	height:50px;
+	position:absolute;
+
+}
+.diamond{
+
+	right:0px;
+	height:80px;
+	position:absolute;
+
+}
+.lives{
+	width:5vw;
+	height: 6vh;
+	white-space: nowrap; 
+
+}
+.heartIcon{
+	width:3vw;
+	display: inline-block;
+}
+.coinIcon{
+	width:3vw;
+	display: inline-block;
+	position: absolute;
+	left:20vw;
+}
+.coinNumber{
+	position: absolute;
+	left:23.5vw;
+	top:-5px;
+	font-size: 50px;
+
+}
+
+body{
+	font-family: "Audiowide", sans-serif;
+	margin: 0px;
+	background: url('background.png');
+	background-size: cover;
+	overflow:hidden;
+}
+
+.heart{
+
+	right:0px;
+	height:50px;
+	position:absolute;
+}
+
+.bullet{
+
+	left:100px;
+	height:30px;
+	position:absolute;
+}
+
+.shield{
+	right:0px;
+	height:70px;
+	position:absolute;
+}
+.over{
+
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	display:none;
+	position: absolute;
+	top:0px;
+	width:100vw;
+	height: 50vh;
+
+}
+
+.playAgain{
+
+	border-radius: 50px;
+	background: transparent;
+	color:black;
+	padding: 20px;
+	font-size: 20px;
+}
