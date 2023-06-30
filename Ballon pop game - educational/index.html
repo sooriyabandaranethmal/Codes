@@ -1,0 +1,413 @@
+<!doctype html>
+<html>
+     <head>
+          <title>Test</title>
+     </head>
+     <body>
+	
+	 <div class="top" >
+	 
+ <input type = "text" value = "0⭐" id = "marks" class = "mark" readonly>
+  <progress  id = 'bar' value="32" class = "wrong" max="100"> 32% </progress>
+</div>
+<button id="b1" class="btn btn-primary"></button>
+<button id="b2" class="btn btn-primary">Click Me2</button>
+<button id="b3" class="btn btn-primary">C3lick Me</button>
+<button id="b4" class="btn btn-primary">Cl4ick Me</button>
+<button id="b5" class="btn btn-primary">Cli5ck Me</button>
+<button id="b6" class="btn btn-primary">Clic6k Me</button>
+<button id="b7" class="btn btn-primary">Click7 Me</button>
+<button id="b8" class="btn btn-primary">Click 8Me</button>
+<button id="b9" class="btn btn-primary">Click M9e</button>
+<div class="que" id = "ques">
+  <p>Footer</p>
+</div>
+
+<style>
+body{
+    overflow: hidden;
+	 background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+.que {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: white;
+   color: black;
+   text-align: center;
+   font-size: 50px;
+ 
+}
+.wrong {
+   position: fixed;
+   right: 0;
+   top: 0;
+   width: 50%;
+   height:50px;
+   background-color: white;
+   color: black;
+   text-align: center;
+   font-size: 50px;
+     height:60px;
+	
+}
+.mark {
+ background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+ border : none ;
+   position: fixed;
+     height:60px;
+
+   left: 0;
+   top: 0;
+   width: 50%;
+   background-color: white;
+   color: white;
+   text-align: center;
+   font-size: 50px;
+   z-index: 999999;
+}
+button{
+font-size: 50px;
+ z-index: -999999;
+ border-radius: 40%;
+  background-color: #04AA6D; 
+  border: none;
+  color: white;
+ 
+}</style>
+           <script>
+		   var bar = document.getElementById('bar');
+
+bar.value = 100;
+		   let count = 0;
+		   let marks = 0;
+		 
+		   var button = document.querySelector("button");
+let questions = [
+ { 
+ question: "He ..... watch the TV",
+ 
+ answer1: "is",
+ 
+ answer2: "am",
+ 
+ answer3: "must",
+ 
+ answer4: "are",
+ 
+ answerC: "will"},
+{ 
+ question: "The hungry man ..... eating the big bun.",
+ 
+ answer1: "were",
+ 
+ answer2: "are",
+ 
+ answer3: "will",
+ 
+ answer4: "may",
+ 
+ answerC: "was"},
+{ 
+ question: "..... I broken a glass ?",
+ 
+ answer1: "has",
+ 
+ answer2: "was",
+ 
+ answer3: "will",
+ 
+ answer4: "may",
+ 
+ answerC: "had"},
+{ 
+ question: "She had ..... his son, John.",
+ 
+ answer1: "forgave",
+ 
+ answer2: "forget",
+ 
+ answer3: "forgive",
+ 
+ answer4: "forgiving",
+ 
+ answerC: "forgiven"},
+{ 
+ question: "We ..... help the old man.",
+ 
+ answer1: "will",
+ 
+ answer2: "must",
+ 
+ answer3: "may",
+ 
+ answer4: "can",
+ 
+ answerC: "should"},
+{ 
+ question: "I gave a ..... of flowers to my mother.",
+ 
+ answer1: "troop",
+ 
+ answer2: "bunch",
+ 
+ answer3: "drop",
+ 
+ answer4: "bar",
+ 
+ answerC: "bouquet"},
+{ 
+ question: "My mother bought a ..... of potatoes.",
+ 
+ answer1: "cup",
+ 
+ answer2: "troop",
+ 
+ answer3: "bunch",
+ 
+ answer4: "packet",
+ 
+ answerC: "kilo"},
+{ 
+ question: "I ..... be doing bad things again.",
+ 
+ answer1: "will",
+ 
+ answer2: "want",
+ 
+ answer3: "weren't",
+ 
+ answer4: "was",
+ 
+ answerC: "won't"},
+{ 
+ question: "Our teacher read out a ..... of verbs.",
+ 
+ answer1: "lots",
+ 
+ answer2: "piece",
+ 
+ answer3: "cup",
+ 
+ answer4: "troop",
+ 
+ answerC: "list"},
+{ 
+ question: "We shared the ..... of chocolate.",
+ 
+ answer1: "sack",
+ 
+ answer2: "tin",
+ 
+ answer3: "bottle",
+ 
+ answer4: "cup",
+ 
+ answerC: "bar"},
+{ 
+ question: "There is a ..... in the cupboard.",
+ 
+ answer1: "box",
+ 
+ answer2: "sack",
+ 
+ answer3: "bottle",
+ 
+ answer4: "bunch",
+ 
+ answerC: "tin"},
+{ 
+ question: "A ..... of rice was given to them.",
+ 
+ answer1: "list",
+ 
+ answer2: "cup",
+ 
+ answer3: "bottle",
+ 
+ answer4: "piece",
+ 
+ answerC: "sack"},
+{ 
+ question: "A ..... of soldiers went back.",
+ 
+ answer1: "sack",
+ 
+ answer2: "bunch",
+ 
+ answer3: "bouquet",
+ 
+ answer4: "bottle",
+ 
+ answerC: "troop"},
+{ 
+ question: "Sandria bought a ..... of curd.",
+ 
+ answer1: "troop",
+ 
+ answer2: "tin",
+ 
+ answer3: "piece",
+ 
+ answer4: "cup",
+ 
+ answerC: "pot"},
+{ 
+ question: "Mother offered a ..... to visitors.",
+ 
+ answer1: "cup",
+ 
+ answer2: "bunch",
+ 
+ answer3: "tin",
+ 
+ answer4: "box",
+ 
+ answerC: "piece"},
+{ 
+ question: "Venura had a ..... of tea.",
+ 
+ answer1: "pot",
+ 
+ answer2: "bottle",
+ 
+ answer3: "box",
+ 
+ answer4: "tin",
+ 
+ answerC: "cup"},
+{ 
+ question: "There was ..... grapes in the tree.",
+ 
+ answer1: "tin",
+ 
+ answer2: "sack",
+ 
+ answer3: "troop",
+ 
+ answer4: "box",
+ 
+ answerC: "bunch"},
+{ 
+ question: "I bought a ..... of milk.",
+ 
+ answer1: "troop",
+ 
+ answer2: "box",
+ 
+ answer3: "tin",
+ 
+ answer4: "cup",
+ 
+ answerC: "bottle"},
+{ 
+ question: "They added a ..... of salt.",
+ 
+ answer1: "bunch",
+ 
+ answer2: "list",
+ 
+ answer3: "box",
+ 
+ answer4: "cup",
+ 
+ answerC: "drop"}
+
+
+];
+
+
+function refresh(){
+  for(let i = 1;i<10;i++){
+  addbutton('b'+i);
+    updateText();
+	
+}
+document.getElementById('ques').innerHTML = questions[count].question;
+}
+refresh();
+function updateText(){
+          for(let i = 1;i<10;i++){
+		  if(i%5 === 0){
+       EditText('b'+i,questions[count].answer1);
+		  }else if(i%5 === 1){
+		   EditText('b'+i,questions[count].answer2);
+		  }else if(i%5 === 2){
+		   EditText('b'+i,questions[count].answer3);
+		  }
+		  else if(i%5 === 3){
+		   EditText('b'+i,questions[count].answer4);
+		  }
+		  else if(i%5 === 4){
+		   EditText('b'+i,questions[count].answerC);
+		  }
+ 
+   }   
+
+}
+function EditText(id,text){
+ const btn = document.getElementById(id);
+   btn.textContent = text;
+}
+
+var myfunc = setInterval(function() {
+refresh();
+}, 2000)
+
+
+function addbutton(id){
+   const box = document.getElementById(id);
+  var changeTop = (Math.random() * (window.innerHeight-button.clientHeight));
+  var changeLeft = (Math.random() * (window.innerWidth-button.style.width));
+
+
+
+box.style.position = 'absolute';
+
+box.style.top = changeTop+'px';
+box.style.left = changeLeft+'px';
+
+}
+ 
+ document.addEventListener("click", printMousePos);
+function printMousePos(event) {
+  var x = event.clientX, y = event.clientY,
+        elementMouseIsOver = document.elementFromPoint(x, y);
+   	if(elementMouseIsOver.nodeName === "BUTTON"){
+
+	if(elementMouseIsOver.textContent === questions[count].answerC){
+	
+	
+	 count ++;
+	 marks = marks + 10;
+	 document.getElementById('marks').value = marks+"⭐";
+
+	}else{
+	if(bar.value !== 20){
+
+	 marks = marks - 5;
+	 document.getElementById('marks').value = marks+"⭐";
+	 bar.value = bar.value - 20;
+	 }else{
+	 alert("You are a looser\n😛😛😛😛😛😛😛\nTry next time");
+	 location.reload();
+	 }
+	}
+	}
+	
+	
+	
+    
+	
+}
+
+           </script>  
+     </body>
+</html>
