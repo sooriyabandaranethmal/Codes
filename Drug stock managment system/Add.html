@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save Web Form Data to Spreadsheets</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="applab/fa-brands-400.woff2" as="font">
+  <link rel="preload" href="applab/fa-solid-900.woff2" as="font">
+  <link rel="preload" href="applab/fa-regular-400.woff2" as="font">
+  <link rel="preload" href="applab/fa-v4compatibility.woff2" as="font">
+  <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+  <script>
+    function setExportConfig(config) { window.EXPORT_OPTIONS = config; }
+  </script>
+  <script src="https://studio.code.org/projects/applab/8POioK5MEoDlHXi1lVqBB0PV-17WtHwNWDjvRc7aAFA/export_config?script_call=setExportConfig"></script>
+  <script src="applab/applab-api.js"></script>
+  <script src="https://www.google.com/jsapi"></script>
+  <link rel="stylesheet" href="applab/applab.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="row">
+    <div class="column" style=" width:25%;">
+
+
+     <div class="container">
+      <form id = "myForm">
+        <label for="myInput">Name</label>
+        <input type="text" class = "myInput" id="myInput" name="Name" placeholder="Name">
+        <label for="b">Home</label>
+        <input type="text" id="b" name="lname" placeholder="Home stock">
+        <label for="lname">Cupboard</label>
+        <input type="text" id="lname" name="lname" placeholder="Cupboard stock">
+      </div>
+    </div>
+    <div class="column" style=" width:75%;">
+      <div id = "demo"></div>
+    </div>
+
+
+  </body>
+  <style>
+    table tr:nth-child(even){background-color: white;}
+  </style>
+
+  <script>
+    var reco = null;
+
+
+    document.getElementById("myInput").addEventListener("keyup", function(event) {
+      var activeElement = document.activeElement;
+      var myElement = document.getElementById('myInput');
+      if (activeElement == myElement) {
+
+        if(document.getElementById("myInput").value != ""){
+          if (event.key == "Enter") {
+            document.getElementById("b").focus();
+
+          }
+        }
+      }
+
+      
+    });
+
+
+    document.getElementById("b").addEventListener("keyup", function(event) {
+      var activeElement = document.activeElement;
+      var myElement = document.getElementById('b');
+      if (activeElement == myElement) {
+
+        if(document.getElementById("b").value != ""){
+          if (event.key == "Enter") {
+            document.getElementById("lname").focus();
+
+          }
+        }
+      }
+
+      
+    });
+
+
+
+
+    document.getElementById("lname").addEventListener("keyup", function(event) {
+      var activeElement = document.activeElement;
+      var myElement = document.getElementById('lname');
+      if (activeElement == myElement) {
+
+        if(document.getElementById("lname").value != ""){
+          if (event.key == "Enter") {
+            cHome = document.getElementById("b").value;
+            cBalance = 0;
+            cTotal = 0;
+            cCup =document.getElementById("lname").value;
+            currName = document.getElementById("myInput").value;
+            cBalance = cCup-(0);
+            createRecord("Balance sheet", {Name:currName,Home:cHome,Balance:cBalance,Cupboard:cCup,Total:(Number(cBalance)+Number(cHome)),G_1x2:0,G_3x4:0,G_5x6:0,G_7x8:0,G_9x10:0,G_11x12:0,G_13x14:0,G_15x16:0,G_17x18:0,G_19x20:0,G_21x22:0,G_23x24:0,G_25x26:0,G_27x28:0,G_29x30:0,G_31:0}, function(record) {
+                  document.getElementById("myInput").value = "";
+                  document.getElementById("myInput").focus();
+                  document.getElementById("lname").value = "";
+                  document.getElementById("b").value = "";
+
+            });
+          }
+        }
+      }
+
+      
+    });
+
+
+  let text = "<table id = 'tble' class = 'tble' border='1' style = \"padding:5px;\">  <tr><th>Name</th> <th>Total</th><th>Cupboard</th><th>1-2</th><th>3-4</th><th>5-6</th><th>7-8</th><th>9-10</th><th>11-12</th><th>13-14</th><th>15-16</th><th>17-18</th><th>19-20</th><th>21-22</th><th>23-24</th><th>25-26</th><th>27-28</th><th>29-30</th><th>31</th><th>Balance</th> <th>Home</th>     </tr>"
+
+    readRecords("Balance sheet", {}, function(records) {
+      reco = records;
+      var obje = [];
+      for(var i = 0;i<records.length;i++){
+        obje.push(records[i].Name);
+      }
+      obje.sort();
+
+      let ob = [];
+      for(let i in obje){
+        for(let x in records){
+
+          if(obje[i] == records[x].Name){
+
+            ob.push(x);
+          }
+        }
+      }
+      console.log(ob);
+      for (var i =0; i < ob.length; i++) {
+        x = ob[i];
+text += "<tr onclick='myFunction(this)'><td>" + records[x].Name + "</td>";
+    text += "<td>" + records[x].Total + "</td>";
+        text += "<td>" + records[x].Cupboard + "</td>";
+        text += "<td>" + records[x].G_1x2 + "</td>";
+        text += "<td>" + records[x].G_3x4 + "</td>";
+        text += "<td>" + records[x].G_5x6 + "</td>";
+        text += "<td>" + records[x].G_7x8 + "</td>";
+        text += "<td>" + records[x].G_9x10 + "</td>";
+        text += "<td>" + records[x].G_11x12 + "</td>";
+        text += "<td>" + records[x].G_13x14 + "</td>";
+        text += "<td>" + records[x].G_15x16 + "</td>";
+        text += "<td>" + records[x].G_17x18 + "</td>";
+        text += "<td>" + records[x].G_19x20 + "</td>";
+        text += "<td>" + records[x].G_21x22 + "</td>";
+        text += "<td>" + records[x].G_23x24 + "</td>";
+        text += "<td>" + records[x].G_25x26 + "</td>";
+        text += "<td>" + records[x].G_27x28 + "</td>";
+        text += "<td>" + records[x].G_29x30 + "</td>";
+        text += "<td>" + records[x].G_31 + "</td>";
+        text += "<td>" + records[x].Balance + "</td>";
+        text += "<td>" + records[x].Home + "</td></tr>";
+
+
+
+
+      }
+
+
+
+
+
+      text += "</table>"    
+      document.getElementById("demo").innerHTML = text;
+      console.log(text);
+
+    });
+  </script>
+
+
+  <style>
+
+    body {font-family: Arial, Helvetica, sans-serif;}
+    #tble {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table tr th {
+      position: sticky;
+      z-index: 100;
+      top: 0;
+    }
+    table td, #tble th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+
+
+    table tr:hover {background-color: #ddd;}
+
+    table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+/* Create two equal columns that floats next to each other */
+
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 100%; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  position:absolute;
+  display: block;
+  position:fixed;
+  width:23vw;
+}
+</style>
+</html>

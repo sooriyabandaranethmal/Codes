@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save Web Form Data to Spreadsheets</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="applab/fa-brands-400.woff2" as="font">
+  <link rel="preload" href="applab/fa-solid-900.woff2" as="font">
+  <link rel="preload" href="applab/fa-regular-400.woff2" as="font">
+  <link rel="preload" href="applab/fa-v4compatibility.woff2" as="font">
+  <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+  <script>
+    function setExportConfig(config) { window.EXPORT_OPTIONS = config; }
+  </script>
+  <script src="https://studio.code.org/projects/applab/8POioK5MEoDlHXi1lVqBB0PV-17WtHwNWDjvRc7aAFA/export_config?script_call=setExportConfig"></script>
+  <script src="applab/applab-api.js"></script>
+  <script src="https://www.google.com/jsapi"></script>
+  <link rel="stylesheet" href="applab/applab.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style = "background:white; overflow:hidden; background:url('https://img.freepik.com/free-photo/beige-wooden-textured-flooring-background_53876-104668.jpg?w=2000');">
+  <div id = "log"style= "font-size: 30px; text-align: center; color:black; height:40vh;background:transparent;">
+    <br><br><br>Current name : 
+
+  </div>
+ 
+  <div style = "text-align: center;">
+    <progress id="bar" style = "color:green; height:80px;width:75vw;" value="0" max="100"> 100% </progress>
+
+</div>
+<textarea id  ="cons"style  ="background:transparent;width:100vw;height:47vh;background-size: contain;"readonly></textarea>
+</body>
+
+<script>
+  var x = 0;
+  var reco = null;
+  readRecords("Balance sheet", {}, function(records) {
+    reco = records;
+      let text = "By running this function:\nAll the data will be cleared.\nWon't be able to undo it";
+  if (confirm(text) == true) {
+    download_csv_file(records);
+    let text2 = "Your file downloaded.\nIf yes press ok to continue.\nIf no press cancel and reload the site.";
+if (confirm(text2) == true){
+alert("Confirm");
+restart();
+}else{
+close();
+}
+  } else {
+    close();
+    
+  }
+  
+  });
+
+  function restart(){
+    var DB1 = 0;
+    var DB3 = 0;
+    var DB5 = 0;
+    var DB7 = 0;
+    var DB9 = 0;
+    var DB11 = 0;
+    var DB13 = 0;
+    var DB15 = 0;
+    var DB17 = 0;
+    var DB19 = 0;
+    var DB21 = 0;
+    var DB23 = 0;
+    var DB25 = 0;
+    var DB27 = 0;
+    var DB29 = 0;
+    var DB31 = 0;
+    var currid = 0;
+    var currName = "";
+    var cHome = 0;
+    var cBalance = 0;
+    var cCup = 0;
+    var cTotal = 0;
+    currid = reco[x].id;
+    cHome = reco[x].Home;
+    cCup = reco[x].Balance;
+    currName = reco[x].Name;
+    cTotal = (Number(cBalance)+Number(cHome));
+    cBalance = 0;
+
+    document.getElementById("log").innerHTML = "<br><br><br>Current name : "+currName;
+    document.getElementById("bar").max = reco.length;
+        document.getElementById("bar").value = x;
+               document.getElementById("cons").innerHTML += "\n\n\nCurrent name   : "+currName;
+               document.getElementById("cons").innerHTML += "\nClearing data      : Success";
+               document.getElementById("cons").scrollTop = document.getElementById("cons").scrollHeight ;
+    cBalance = cCup;
+    updateRecord("Balance sheet", {id:currid, Name:currName,Home:Number(cHome),Balance:cBalance,Cupboard:cCup,Total:(Number(cBalance)+Number(cHome)),G_1x2:DB1,G_3x4:DB3,G_5x6:DB5,G_7x8:DB7,G_9x10:DB9,G_11x12:DB11,G_13x14:DB13,G_15x16:DB15,G_17x18:DB17,G_19x20:DB19,G_21x22:DB21,G_23x24:DB23,G_25x26:DB25,G_27x28:DB27,G_29x30:DB29,G_31:DB31}, function(record, success) {
+      if(success){
+        x++;
+        if(x < reco.length){
+        restart();
+      }else{
+        alert("Done.\nStatus:Successful");
+        close();
+      }
+      }
+    });
+
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  var csvFileData = [];  
+    
+//create a user-defined function to download CSV file   
+function download_csv_file(c) {  
+ 
+
+
+ for(let a in c){
+  csvFileData.push( [] );
+csvFileData[a].push(c[a].Name,c[a].Total,c[a].Cupboard,c[a].G_1x2,c[a].G_3x4,c[a].G_5x6,c[a].G_7x8,c[a].G_9x10,c[a].G_11x12,c[a].G_13x14,c[a].G_15x16,c[a].G_17x18,c[a].G_19x20,c[a].G_21x22,c[a].G_23x24,c[a].G_25x26,c[a].G_27x28,c[a].G_29x30,c[a].G_31,c[a].Balance,c[a].Home);
+ }
+ csvFileData.sort(compareSecondColumn);
+ console.log("------------------------------------------------------");
+ console.log(csvFileData);
+    //define the heading for each row of the data  
+    var csv = 'Name,Total,Cupboard,1 & 2,3 & 4,5 & 6,7 & 8,9 & 10,11 & 12,13 & 14,15 & 16,17 & 18,19 & 20,21 & 22,23 & 24,25 & 26,27 & 28,29 & 30,31,Balance,Home\n';  
+      
+    //merge the data with CSV  
+    csvFileData.forEach(function(row) {  
+            csv += row.join(',');  
+            csv += "\n";  
+    });  
+   
+    //display the created CSV data on the web browser   
+    //document.write(csv);  
+  
+     
+    var hiddenElement = document.createElement('a');  
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
+    hiddenElement.target = '_blank';  
+      
+    //provide the name for the CSV file to be downloaded  
+    let months = ["January","Frebruary","March","April","May","June","July","August","September","October","November","December"];
+    var fname = months[new Date().getMonth()]+" Drug balance sheet.csv";
+    hiddenElement.download = fname;  
+    hiddenElement.click();  
+}  
+
+
+function compareSecondColumn(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
+}
+
+</script>
+</html>

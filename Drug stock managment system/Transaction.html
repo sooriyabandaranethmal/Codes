@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Save Web Form Data to Spreadsheets</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preload" href="applab/fa-brands-400.woff2" as="font">
+	<link rel="preload" href="applab/fa-solid-900.woff2" as="font">
+	<link rel="preload" href="applab/fa-regular-400.woff2" as="font">
+	<link rel="preload" href="applab/fa-v4compatibility.woff2" as="font">
+	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+	<script>
+		function setExportConfig(config) { window.EXPORT_OPTIONS = config; }
+	</script>
+	<script src="https://studio.code.org/projects/applab/8POioK5MEoDlHXi1lVqBB0PV-17WtHwNWDjvRc7aAFA/export_config?script_call=setExportConfig"></script>
+	<script src="applab/applab-api.js"></script>
+	<script src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" href="applab/applab.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="row">
+		<div class="column" style=" width:25%;">
+
+
+			<div class="container">
+				<form id = "myForm">
+					<label for="myInput">Name</label>
+					<div class="autocomplete" style="width:300px;">
+						<input type="text" class = "myInput" id="myInput" name="Name" placeholder="Name">
+					</div>
+					<label for="lname">Value</label>
+					<input type="text" id="lname" name="Cupboard" placeholder="Value">
+				</form>
+
+
+
+			</div>
+		</div>
+		<div class="column" style=" width:75%;">
+			<div id = "demo"></div>
+		</div>
+
+
+	</body>
+	<style>
+		table tr:nth-child(even){background-color: white;}
+	</style>
+
+	<script>
+		var reco = null;
+
+		document.getElementById("lname").addEventListener("keyup", function(event) {
+			var activeElement = document.activeElement;
+			var myElement = document.getElementById('lname');
+			if (activeElement == myElement) {
+
+				if(document.getElementById("lname").value != ""){
+					if (event.key == "Enter") {
+						for(x in reco){
+							if(reco[x].Name == document.getElementById("myInput").value){
+
+								var DB1 = reco[x].G_1x2;
+								var DB3 = reco[x].G_3x4;
+								var DB5 = reco[x].G_5x6;
+								var DB7 = reco[x].G_7x8;
+								var DB9 = reco[x].G_9x10;
+								var DB11 = reco[x].G_11x12;
+								var DB13 = reco[x].G_13x14;
+								var DB15 = reco[x].G_15x16;
+								var DB17 = reco[x].G_17x18;
+								var DB19 = reco[x].G_19x20;
+								var DB21 = reco[x].G_21x22;
+								var DB23 = reco[x].G_23x24;
+								var DB25 = reco[x].G_25x26;
+								var DB27 = reco[x].G_27x28;
+								var DB29 = reco[x].G_29x30;
+								var DB31 = reco[x].G_31;
+								var currid = 0;
+								var currName = "";
+								var cHome = 0;
+								var cBalance = 0;
+								var cCup = 0;
+								var cTotal = 0;
+								for(let y in reco){
+									if(reco[y].Name == document.getElementById("myInput").value){
+										currid = reco[y].id;
+										cHome = reco[y].Home;
+										cBalance = reco[y].Balance;
+										cTotal = reco[y].Total;
+										cCup = reco[y].Cupboard;
+										currName = reco[y].Name;
+									}
+								}
+								cHome = (cHome-Number(document.getElementById("lname").value));
+								cCup = (Number(cCup)+Number(document.getElementById("lname").value));
+								console.log(cHome);
+								console.log(cCup);
+								cBalance = cCup-(Number(DB1)+Number(DB3)+Number(DB5)+Number(DB7)+Number(DB9)+Number(DB11)+Number(DB13)+Number(DB15)+Number(DB17)+Number(DB19)+Number(DB21)+Number(DB23)+Number(DB25)+Number(DB27)+Number(DB29)+Number(DB31));
+								updateRecord("Balance sheet", {id:currid, Name:currName,Home:cHome,Balance:cBalance,Cupboard:cCup,Total:(Number(cBalance)+Number(cHome)),G_1x2:DB1,G_3x4:DB3,G_5x6:DB5,G_7x8:DB7,G_9x10:DB9,G_11x12:DB11,G_13x14:DB13,G_15x16:DB15,G_17x18:DB17,G_19x20:DB19,G_21x22:DB21,G_23x24:DB23,G_25x26:DB25,G_27x28:DB27,G_29x30:DB29,G_31:DB31}, function(record, success) {
+									console.log(success);
+
+
+								});
+								var dt = new Date().getFullYear()+"/"+(new Date().getMonth()+1)+"/"+new Date().getDate();
+
+								createRecord("Reports",{Date:dt,From:"Home",To:"Cupboard","Value":document.getElementById("lname").value,Drug:document.getElementById("myInput").value}, function(record) {
+									
+								});
+									document.getElementById("myInput").value = "";
+									document.getElementById("myInput").focus();
+									document.getElementById("lname").value = "";
+							}
+						}
+					}
+				}
+			}
+		});
+
+
+		let text = "<table id = 'tble' class = 'tble' border='1' style = \"padding:5px;\">  <tr><th>Name</th> <th>Total</th><th>Cupboard</th><th>1-2</th><th>3-4</th><th>5-6</th><th>7-8</th><th>9-10</th><th>11-12</th><th>13-14</th><th>15-16</th><th>17-18</th><th>19-20</th><th>21-22</th><th>23-24</th><th>25-26</th><th>27-28</th><th>29-30</th><th>31</th><th>Balance</th> <th>Home</th>     </tr>"
+
+		readRecords("Balance sheet", {}, function(records) {
+			reco = records;
+			var obje = [];
+			for(var i = 0;i<records.length;i++){
+				obje.push(records[i].Name);
+			}
+			obje.sort();
+
+			let ob = [];
+			for(let i in obje){
+				for(let x in records){
+
+					if(obje[i] == records[x].Name){
+
+						ob.push(x);
+					}
+				}
+			}
+			console.log(ob);
+			for (var i =0; i < ob.length; i++) {
+				x = ob[i];
+				text += "<tr onclick='myFunction(this)'><td>" + records[x].Name + "</td>";
+				text += "<td>" + records[x].Total + "</td>";
+				text += "<td>"+ records[x].Cupboard + "</td>";
+				text += "<td>" + records[x].G_1x2 + "</td>";
+				text += "<td>" + records[x].G_3x4 + "</td>";
+				text += "<td>" + records[x].G_5x6 + "</td>";
+				text += "<td>" + records[x].G_7x8 + "</td>";
+				text += "<td>" + records[x].G_9x10 + "</td>";
+				text += "<td>" + records[x].G_11x12 + "</td>";
+				text += "<td>" + records[x].G_13x14 + "</td>";
+				text += "<td>" + records[x].G_15x16 + "</td>";
+				text += "<td>" + records[x].G_17x18 + "</td>";
+				text += "<td>" + records[x].G_19x20 + "</td>";
+				text += "<td>" + records[x].G_21x22 + "</td>";
+				text += "<td>" + records[x].G_23x24 + "</td>";
+				text += "<td>" + records[x].G_25x26 + "</td>";
+				text += "<td>" + records[x].G_27x28 + "</td>";
+				text += "<td>" + records[x].G_29x30 + "</td>";
+				text += "<td>" + records[x].G_31 + "</td>";
+				text += "<td>" + records[x].Balance + "</td>";
+				text += "<td>" + records[x].Home + "</td></tr>";
+
+
+
+
+
+
+
+
+
+
+
+			}
+  //console.log(text);
+
+
+
+
+			text += "</table>"    
+			document.getElementById("demo").innerHTML = text;
+  //console.log(text);
+			var countries =[];
+			console.log(records[0].Name);
+			for(let x in reco){
+				countries.push(records[x].Name);
+				console.log(records[x].Name);
+			}
+
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+			autocomplete(document.getElementById("myInput"), countries);
+		});
+
+	</script>
+
+
+	<style>
+
+		body {font-family: Arial, Helvetica, sans-serif;}
+		#tble {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		table tr th {
+			position: sticky;
+			z-index: 100;
+			top: 0;
+		}
+		table td, #tble th {
+			border: 1px solid #ddd;
+			padding: 8px;
+		}
+
+
+
+		table tr:hover {background-color: #ddd;}
+
+		table th {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: left;
+			background-color: #04AA6D;
+			color: white;
+		}
+		* {
+			box-sizing: border-box;
+		}
+
+/* Create two equal columns that floats next to each other */
+
+
+/* Create two equal columns that floats next to each other */
+.column {
+	float: left;
+	width: 50%;
+	padding: 10px;
+	height: 100%; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+
+input[type=submit] {
+	background-color: #04AA6D;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #45a049;
+}
+
+.container {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	position:absolute;
+	display: block;
+	position:fixed;
+	width:23vw;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+		var currentFocus;
+		var fina = [];
+  /*execute a function when someone writes in the text field:*/
+		inp.addEventListener("input", function(e) {
+			fina = [];
+			var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+			closeAllLists();
+			if (!val) { return false;}
+			currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+			a = document.createElement("DIV");
+			a.setAttribute("id", this.id + "autocomplete-list");
+			a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+			this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+			for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+				if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+					b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+					b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+					fina.push(arr[i]);
+					b.innerHTML += arr[i].substr(val.length);
+
+          /*insert a input field that will hold the current array item's value:*/
+					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+					b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+						inp.value = this.getElementsByTagName("input")[0].value;
+						document.getElementById("lname").focus();
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+						closeAllLists();
+					});
+					a.appendChild(b);
+				}
+			}
+		});
+  /*execute a function presses a key on the keyboard:*/
+		inp.addEventListener("keydown", function(e) {
+			var x = document.getElementById(this.id + "autocomplete-list");
+			if (x) x = x.getElementsByTagName("div");
+			if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+				currentFocus++;
+        /*and and make the current item more visible:*/
+				addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+      	currentFocus--;
+        /*and and make the current item more visible:*/
+      	addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+      	e.preventDefault();
+      	document.getElementById("myInput").value =fina[0];
+      	closeAllLists(document.getElementById("lname"));
+      	document.getElementById("lname").focus();
+
+        //alert(fina[0]);
+
+      	if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+      		if (x) x[currentFocus].click();
+      	}
+
+      }
+  });
+		function addActive(x) {
+    /*a function to classify an item as "active":*/
+			if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+			removeActive(x);
+			if (currentFocus >= x.length) currentFocus = 0;
+			if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+			x[currentFocus].classList.add("autocomplete-active");
+		}
+		function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+			for (var i = 0; i < x.length; i++) {
+				x[i].classList.remove("autocomplete-active");
+			}
+		}
+		function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+			var x = document.getElementsByClassName("autocomplete-items");
+			for (var i = 0; i < x.length; i++) {
+				if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
+			}
+		}
+  /*execute a function when someone clicks in the document:*/
+		document.addEventListener("click", function (e) {
+			closeAllLists(e.target);
+		});
+	}
+
+/*An array containing all the country names in the world:*/
+
+
+
+</script>
+<style>
+	.autocomplete {
+		position: relative;
+		display: inline-block;
+	}
+
+	input {
+		border: 1px solid transparent;
+		background-color: #f1f1f1;
+		padding: 10px;
+		font-size: 16px;
+	}
+
+	input[type=text] {
+		background-color: #f1f1f1;
+		width: 100%;
+	}
+
+	input[type=submit] {
+		background-color: DodgerBlue;
+		color: #fff;
+		cursor: pointer;
+	}
+
+	.autocomplete-items {
+		position: absolute;
+		border: 1px solid #d4d4d4;
+		border-bottom: none;
+		border-top: none;
+		z-index: 99;
+		/*position the autocomplete items to be the same width as the container:*/
+		top: 100%;
+		left: 0;
+		right: 0;
+	}
+
+	.autocomplete-items div {
+		padding: 10px;
+		cursor: pointer;
+		background-color: #fff; 
+		border-bottom: 1px solid #d4d4d4; 
+	}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+	background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+	background-color: DodgerBlue !important; 
+	color: #ffffff; 
+}
+</style>
+</html>

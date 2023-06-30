@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save Web Form Data to Spreadsheets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" href="applab/fa-brands-400.woff2" as="font">
+    <link rel="preload" href="applab/fa-solid-900.woff2" as="font">
+    <link rel="preload" href="applab/fa-regular-400.woff2" as="font">
+    <link rel="preload" href="applab/fa-v4compatibility.woff2" as="font">
+    <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+    <script>
+      function setExportConfig(config) { window.EXPORT_OPTIONS = config; }
+    </script>
+    <script src="https://studio.code.org/projects/applab/8POioK5MEoDlHXi1lVqBB0PV-17WtHwNWDjvRc7aAFA/export_config?script_call=setExportConfig"></script>
+    <script src="applab/applab-api.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="applab/applab.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div id = "demo"></div>
+
+
+</body>
+<style>
+  table tr:nth-child(even){background-color: white;}
+  </style>
+
+<script>
+
+  let text = "<table id = 'tble' class = 'tble' border='1' style = \"padding:5px;\">  <tr><th>Date</th><th>Drug name</th> <th>Value</th><th>From</th><th></th><th>To</th></tr>"
+
+readRecords("Reports", {}, function(records) {
+  for (var i =0; i < records.length; i++) {
+  x = i;
+  if(records[x].From == "Pharmacy"){
+     text += "<tr onclick='myFunction(this)' style = 'background:#f7c852'><td>" + records[x].Date + "</td>";
+   }else if(records[x].From == "Home"){
+     text += "<tr onclick='myFunction(this)' style = 'background:#f77cf1;'><td>" + records[x].Date + "</td>";
+   }
+
+    text += "<td>" + records[x].Drug + "</td>";
+    text += "<td>" + records[x].Value + "</td>";
+    text += "<td>" + records[x].From + "</td>";
+    text += "<td style = 'font-size:50px; text-align:center;'>→</td>";
+    text += "<td>" + records[x].To + "</td></tr>";
+  }
+  //console.log(text);
+
+
+
+
+  text += "</table>"    
+  document.getElementById("demo").innerHTML = text;
+ 
+
+  //console.log(text);
+});
+
+</script>
+
+
+<style>
+
+  body {font-family: Arial, Helvetica, sans-serif;}
+  #tble {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+table tr th {
+    position: sticky;
+  z-index: 100;
+  top: 0;
+}
+table td, #tble th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  position:absolute;
+  display: block;
+  position:fixed;
+  width:23vw;
+}
+  </style>
+</html>

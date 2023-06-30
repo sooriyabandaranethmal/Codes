@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+body{
+	overflow: hidden;
+	background:url('https://wallpapercave.com/wp/wp7213368.jpg');
+	background-size: cover;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+  background: transparent;
+
+}
+
+.column2 {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+  background: transparent;
+
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  background: transparent;
+}
+.buttons{
+	
+}
+.buttons1{
+	width:100%;
+	height:75%;
+	background:#ff424f;
+	border-radius: 50px;
+}
+.buttons7{
+	width:100%;
+	height:75%;
+	background:#fc03d7;
+	border-radius: 50px;
+}
+.buttons2{
+	width:100%;
+	height:75%;
+	background:#73ff70;
+	border-radius: 50px;
+}
+.buttons3{
+	background:#fcf338;
+	width:100%;
+	height:75%;
+	border-radius: 50px;
+}
+.buttons4{
+	width:100%;
+	height:75%;
+	background:#38a7fc;
+	border-radius: 50px;
+}
+.buttons5{
+	width:100%;
+	height:75%;
+	background:#fc9342;
+	border-radius: 50px;
+}
+.buttons6{
+	width:100%;
+	height:75%;
+	background:#0afff3;
+	border-radius: 50px;
+}
+.buttons8{
+	width:100%;
+	height:75%;
+	background:#63fa34;
+	border-radius: 50px;
+}
+.buttons9{
+	width:100%;
+	height:75%;
+	background:#fa4234;
+	border-radius: 50px;
+}
+.buttons10{
+	width:100%;
+	height:75%;
+	background:#ffef40;
+	border-radius: 50px;
+}
+.buttons4:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons3:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons2:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons1:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons5:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons6:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons7:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons8:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons9:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+.buttons10:hover{
+	transition-duration: 0.5s;
+	transform: scale(1.2);
+}
+</style>
+</head>
+<body>
+
+<h1 style = "text-align: center; font-size:50px; color:black; font-family: Times New Roman, Times, serif;">Admin-dashboard</h1>
+
+<div class="row">
+	<div class="column" >
+		<button class = "buttons1" onclick = "window.location = 'View.html' "><h1>View</h1><br><span style = "font-size: 20px;">To view info in a table</span></button>
+	</div>
+		<div class="column" >
+		<button class = "buttons10" onclick = "window.location = 'Statistics.html' "><h1>Statistics</h1><br><span style = "font-size: 20px;">To view the statistics of every drug</span></button>
+	</div>
+	<div class="column" >
+		<button class = "buttons2"onclick = "window.location = 'Update.html' "><h1>Update</h1><br><span style = "font-size: 20px;">To change the data of the dates</span></button>
+	</div>
+	<div class="column" >
+		<button class = "buttons3"onclick = "window.location = 'Home-adding.html' "><h1>Update home</h1><br><span style = "font-size: 20px;">To update the values of "Home" column</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+	<div class="column">
+		<button class = "buttons4"onclick = "window.location = 'Recalculate.html' "><h1>Recalculate</h1><br><span style = "font-size: 20px;">To reassign the value of every cell according to the formula</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+</div>
+<div class="row">
+	<div class="column2" >
+		<button class = "buttons6"onclick = "window.location = 'Add.html' "><h1>Add</h1><br><span style = "font-size: 20px;">To add data to the database</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+	<div class="column2" >
+<button class = "buttons7"onclick = "window.location = 'Reports.html' "><h1>Reports</h1><br><span style = "font-size: 20px;">To view reports on all the actions</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+		<div class="column2" >
+<button class = "buttons8"onclick = "window.location = 'Download.html' "><h1>Download</h1><br><span style = "font-size: 20px;">To download the balance sheet as a *.csv file</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+
+	<div class="column2">
+		<button class = "buttons5"onclick = "window.location = 'Transaction.html' "><h1>Transaction</h1><br><span style = "font-size: 20px;">To update the record after carrying products from "Home" to "Cupboard"</span><br>Access - <strong>Admin only</strong></button>
+	</div>
+			<div class="column2" >
+<button class = "buttons9"onclick = "window.location = 'New-month.html' "><h1>Clear data</h1><br><span style = "font-size: 20px;">To clear the data of the database and get ready for a new month.<br><strong>Permanant</strong></span><br>Access - <strong>Admin only</strong></button>
+	</div>
+</div>
+
+
+
+</body>
+</html>
